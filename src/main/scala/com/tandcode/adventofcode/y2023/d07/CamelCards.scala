@@ -1,12 +1,13 @@
 package com.tandcode.adventofcode.y2023.d07
 
 import com.tandcode.adventofcode.y2023.d07.CamelCards.Card
-import com.tandcode.adventofcode.y2023.d07.CamelCards.Card._
+import com.tandcode.adventofcode.y2023.d07.CamelCards.Card.*
 
-import scala.io.Source
-import scala.util.Using
+object CamelCards {
 
-object CamelCards extends App {
+  def part1(input: String): Long = countWeightOfCards(input)
+
+  def part2(input: String): Long = countWeightOfCards(input, true)
 
   enum Card(val value: String):
     case N2 extends Card("2")
@@ -136,18 +137,4 @@ object CamelCards extends App {
       .foldLeft(0L) { case (prevValue, handToIndex) => prevValue + handToIndex._1.value * (handToIndex._2 + 1) }
   }
 
-  val testValues =
-    """32T3K 765
-      |T55J5 684
-      |KK677 28
-      |KTJJT 220
-      |QQQJA 483""".stripMargin
-
-  val inputValues: String = Using(Source.fromResource("y2023/d07/input.txt"))(_.mkString).getOrElse("")
-
-  println(s"Test count weight of cards: ${countWeightOfCards(testValues)}")
-  println(s"Input count weight of cards: ${countWeightOfCards(inputValues)}")
-
-  println(s"Test count weight of cards with joker: ${countWeightOfCards(testValues, true)}")
-  println(s"Input count weight of cards with joker: ${countWeightOfCards(inputValues, true)}")
 }

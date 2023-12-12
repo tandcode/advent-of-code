@@ -1,9 +1,17 @@
 package com.tandcode.adventofcode.y2023.d01
 
-import scala.io.Source
-import scala.util.Using
+import com.tandcode.adventofcode.y2023.io.Util.strToLines
 
-object Solution extends App {
+object Trebuchet {
+
+  def part1(input: String): Int = {
+    calibrate(strToLines(input))
+  }
+
+  def part2(input: String): Int = {
+    calibrateImproved(strToLines(input))
+  }
+  
   def calibrate(codes: Seq[String]): Int  = {
     val calibrationValues = codes.flatMap(line =>
       for {
@@ -14,11 +22,6 @@ object Solution extends App {
 
     calibrationValues.sum
   }
-
-  val inputValues: Seq[String] = Using(Source.fromResource("y2023/d01/input1.txt"))(_.getLines().toSeq)
-    .getOrElse(Nil)
-
-  println(s"calibration value: ${calibrate(inputValues)}")
 
   def calibrateImproved(codes: Seq[String]): Int = {
     val numbers = Map(
@@ -43,5 +46,4 @@ object Solution extends App {
     calibrationValues.sum
   }
 
-  println(s"improved calibration value: ${calibrateImproved(inputValues)}")
 }

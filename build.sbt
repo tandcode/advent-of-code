@@ -6,3 +6,8 @@ lazy val root = (project in file("."))
   .settings(
     name := "advent-of-code-scala"
   )
+
+val scalatestVersion = "3.2.17"
+
+libraryDependencies += "org.scalactic" %% "scalactic" % scalatestVersion
+libraryDependencies += "org.scalatest" %% "scalatest" % scalatestVersion % "test"

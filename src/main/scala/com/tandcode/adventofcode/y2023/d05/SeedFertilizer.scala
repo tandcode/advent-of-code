@@ -1,11 +1,12 @@
 package com.tandcode.adventofcode.y2023.d05
 
 import scala.annotation.tailrec
-import scala.collection.mutable.ListBuffer
-import scala.io.Source
-import scala.util.Using
 
-object SeedFertilizer extends App {
+object SeedFertilizer {
+
+  def part1(input: String): Long = closestSeed(input)
+
+  def part2(input: String): Long = closestSeed2(input)
 
   val mapperRex = "(\\w+)-to-(\\w+) map:".r
   val theSeed = "seed"
@@ -155,8 +156,6 @@ object SeedFertilizer extends App {
       ranges.foldLeft(List.empty[Range]) { case(stack, el) =>
         if stack.isEmpty then el :: stack else stack.head.merge(el).reverse.toList ::: stack.tail
       }
-//      val seq = ranges.sliding(2).flatMap { case Seq(a, b) => a.merge(b) }.toSeq
-//      merge(seq, ranges.size)
     }
 
   def intersect(range1: (Long, Long),
@@ -216,47 +215,4 @@ object SeedFertilizer extends App {
     }
   }
 
-
-  val testValues =
-    """seeds: 79 14 55 13
-      |
-      |seed-to-soil map:
-      |50 98 2
-      |52 50 48
-      |
-      |soil-to-fertilizer map:
-      |0 15 37
-      |37 52 2
-      |39 0 15
-      |
-      |fertilizer-to-water map:
-      |49 53 8
-      |0 11 42
-      |42 0 7
-      |57 7 4
-      |
-      |water-to-light map:
-      |88 18 7
-      |18 25 70
-      |
-      |light-to-temperature map:
-      |45 77 23
-      |81 45 19
-      |68 64 13
-      |
-      |temperature-to-humidity map:
-      |0 69 1
-      |1 0 69
-      |
-      |humidity-to-location map:
-      |60 56 37
-      |56 93 4""".stripMargin
-
-  val inputValues: String = Using(Source.fromResource("y2023/d05/input.txt"))(_.mkString).getOrElse("")
-
-  println(s"Test closest seed, part 1: ${closestSeed(testValues)}")
-  println(s"Input closest seed, part 1: ${closestSeed(inputValues)}")
-
-  println(s"Test closest seed, part 2: ${closestSeed2(testValues)}")
-  println(s"Input closest seed, part 2: ${closestSeed2(inputValues)}")
 }

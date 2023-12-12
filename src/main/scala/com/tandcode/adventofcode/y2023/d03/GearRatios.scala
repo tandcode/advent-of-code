@@ -1,9 +1,12 @@
 package com.tandcode.adventofcode.y2023.d03
 
-import scala.io.Source
-import scala.util.Using
+import com.tandcode.adventofcode.y2023.io.Util.strToLines
 
-object GearRatios extends App {
+object GearRatios {
+  
+  def part1(input: String): Int = sumUpPartNumbers(strToLines(input))
+
+  def part2(input: String): Int = gearRatios(strToLines(input))
 
   case class NumberInfo(line: Int, num: Int, start: Int, end: Int)
   case class Gear(line: Int, start: Int)
@@ -27,26 +30,6 @@ object GearRatios extends App {
       .sum
   }
 
-  val testValues: Seq[String] = Seq(
-    "467..114..",
-    "...*......",
-    "..35..633.",
-    "......#...",
-    "617*......",
-    ".....+.58.",
-    "..592.....",
-    "......755.",
-    "...$.*....",
-    ".664.598.."
-  )
-  println(s"Test ratios: ${
-    sumUpPartNumbers(testValues)
-  }")
-
-  val inputValues: Seq[String] = Using(Source.fromResource("y2023/d03/input.txt"))(_.getLines().toSeq).getOrElse(Nil)
-
-  println(s"Actual gear ratios: ${sumUpPartNumbers(inputValues)}")
-
   def gearRatios(input: Seq[String]) = {
     val lines = input.zipWithIndex
     val numbers = lines
@@ -68,8 +51,5 @@ object GearRatios extends App {
         Option.when(gearRatios.size == 2)(gearRatios.product)
       }).sum
   }
-
-  println(s"Test product gear ratios: ${gearRatios(testValues)}")
-  println(s"Actual product gear ratios: ${gearRatios(inputValues)}")
 
 }

@@ -1,9 +1,10 @@
 package com.tandcode.adventofcode.y2023.d06
 
-import scala.io.Source
-import scala.util.Using
+object BoatRace {
 
-object BoatRace extends App {
+  def part1(input: String): Long = howManyRaceCombinations(timeToDistanceTestcases(input))
+
+  def part2(input: String): Long = howManyRaceCombinations(timeToDistanceTestcases(input, true))
 
   def timeToDistanceTestcases(input: String, merge: Boolean = false) = {
     val lines = input.split("(\\r\\n)")
@@ -31,16 +32,4 @@ object BoatRace extends App {
   }
 
   def travelDistance(travelTime: Long, accelerationTime: Long) = accelerationTime * (travelTime - accelerationTime)
-
-  val testValues =
-    """Time:      7  15   30
-      |Distance:  9  40  200""".stripMargin
-
-  val inputValues: String = Using(Source.fromResource("y2023/d06/input.txt"))(_.mkString).getOrElse("")
-
-  println(s"Test fastest way, part 1: ${howManyRaceCombinations(timeToDistanceTestcases(testValues))}")
-  println(s"Input fastest way, part 1: ${howManyRaceCombinations(timeToDistanceTestcases(inputValues))}")
-
-  println(s"Test fastest way, part 2: ${howManyRaceCombinations(timeToDistanceTestcases(testValues, true))}")
-  println(s"Input fastest way, part 2: ${howManyRaceCombinations(timeToDistanceTestcases(inputValues, true))}")
 }
