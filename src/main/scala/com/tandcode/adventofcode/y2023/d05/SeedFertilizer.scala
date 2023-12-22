@@ -13,8 +13,11 @@ object SeedFertilizer {
 
   case class Range(start: Long, length: Long) extends Ordered[Range]{
 
-    lazy val end = start + length
 
+    override def toString: String = s"Range($start, ${end - 1})"
+
+    // end excluded
+    lazy val end = start + length
 
     override def compare(that: Range): Int = {
       val startDiff = start.compare(that.start)
@@ -122,31 +125,26 @@ object SeedFertilizer {
       mappings.get(from -> nextFrom) match
         case None => valueRange
         case Some(mapping) =>
-          val nextValues = mapping
-            .flatMap(line => {
-              val Seq(dest, source, length) = line
+          val total = valueRange.flatMap(value => {
+            val (notMapped, mapped) = mapping
+              .foldLeft(Seq(value) -> Seq.empty[Range]) { case(notMapToRes, line) =>
+                val (notMapped, mapped) = notMapToRes
+                val Seq(dest, source, length) = line
+                val r = Range(source, length)
 
-              val value1 = valueRange
-                .flatMap(value => {
-                  val maybeTuple = value.intersect(Range(source, length))
-                  maybeTuple
-                    .map { case Range(start, len) => Range(start + dest - source, len) }
-                }
-                )
-              value1
-            })
-            .distinct
+                val mappedRanges = value.intersect(Range(source, length)).toSeq
+                  .map { case Range(start, len) => Range(start + dest - source, len) }
 
-          val notMappedValues = nextValues
-            .foldLeft(valueRange) { case(out, value) => out.flatMap(_.subtract(value)) }
+                notMapped.flatMap(_.subtract(r)) -> (mapped ++ mappedRanges)
+              }
 
-          val total = (nextValues ++ notMappedValues)
-          val totalMerged = merge(total.sorted)
-           loop(nextFrom, totalMerged)
+            notMapped ++ mapped
+          })
+
+          loop(nextFrom, merge(total.sorted))
     }
 
-    val value = seeds.flatMap(seed => loop(theSeed, Seq(seed))).map { _.start }
-    value.min
+    seeds.flatMap(seed => loop(theSeed, Seq(seed))).map(_.start).min
   }
 
   def merge(ranges: Seq[Range], prevSize: Int = 0): Seq[Range] =
@@ -157,62 +155,5 @@ object SeedFertilizer {
         if stack.isEmpty then el :: stack else stack.head.merge(el).reverse.toList ::: stack.tail
       }
     }
-
-  def intersect(range1: (Long, Long),
-                range2: (Long, Long)): Option[(Long, Long)] = {
-    var r1 = range1
-    var r2 = range2
-
-    if (r1._1 > r2._1) {
-      r1 = range2
-      r2 = range1
-    }
-
-    val (start1, length1) = r1
-    val (start2, length2) = r2
-    val end1 = start1 + length1
-    val end2 = start2 + length2
-    val overlapStart = start2
-    val overlapEnd = end1.min(end2)
-    Option.when(overlapEnd > overlapStart)(overlapStart -> (overlapEnd - overlapStart))
-  }
-
-  def subtract(range1: (Long, Long),
-               range2: (Long, Long)): Seq[(Long, Long)] = {
-    val maybeIntersection = intersect(range1, range2)
-
-    maybeIntersection.toSeq.flatMap(inter => {
-      val (start1, length1) = range1
-      val (startInt, lengthInt) = range2
-      val end1 = start1 + length1
-      val endInt = startInt + lengthInt
-
-      Seq(
-        (start1, startInt - start1),
-        (endInt, end1 - endInt),
-      )
-    }).filter { case (_, length) => length > 0 }
-  }
-
-  def merge(range1: (Long, Long),
-            range2: (Long, Long)): Seq[(Long, Long)] = {
-    val (start1, length1) = range1
-    val (start2, length2) = range2
-    val end1 = start1 + length1
-    val end2 = start2 + length2
-
-    val isFirstSooner = start1 <= start2
-    val shouldMerge = if isFirstSooner then end1 >= start2 else end2 >= start1
-    if (shouldMerge) {
-      val start = start1.min(start2)
-      val length = end1.max(end2) - start1
-      Seq(start -> length)
-    } else {
-      Seq(
-        range1,
-        range2
-      )
-    }
-  }
 
 }
