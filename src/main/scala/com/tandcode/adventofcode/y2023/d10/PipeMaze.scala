@@ -1,5 +1,6 @@
 package com.tandcode.adventofcode.y2023.d10
 
+import com.tandcode.adventofcode.y2023.d10.PipeMaze.Pos
 import com.tandcode.adventofcode.y2023.io.Util.strToLines
 
 import scala.annotation.tailrec
@@ -57,24 +58,38 @@ object PipeMaze {
     Pos(startY, grid(startY).indexOf(startChar))
   }
 
+  def startSym(grid: Array[String], p: Pos): Char = {
+    val vertUp = Set('|', 'F', '7')(grid(p.up))
+    val vertDown = Set('|', 'J', 'L')(grid(p.down))
+    val horLeft = Set('-', 'F', 'L')(grid(p.left))
+    val horRight = Set('-', '7', 'J')(grid(p.right))
+
+    if vertUp && vertDown then '|'
+    else if horLeft && horRight then '-'
+    else if horLeft && vertDown then '7'
+    else if horLeft && vertUp then 'J'
+    else if horRight && vertDown then 'F'
+    else if horRight && vertUp then 'L'
+    else 'S'
+  }
+
   def part2(input: String): Int = {
     val grid = strToLines(input).toArray
     val path = gridToPath(grid).toSet
     val startPosition = startPos(grid)
+    val startSymbol = startSym(grid, startPosition)
 
     val borderRex = Seq("\\|", "F-*J", "L-*7").map(_.r)
-    val startIntersect = "([7J|]S[LF|])".r
+    val gridClean = grid.map(_.replace('S', startSymbol))
 
     val insideTiles = for {
-      y <- grid.indices
-      x <- grid(y).indices
+      y <- gridClean.indices
+      x <- gridClean(y).indices
       p = Pos(y, x)
       if !path(p)
-      left = grid(y).substring(x)
+      left = gridClean(y).substring(x)
       matches = borderRex.flatMap(_.findAllMatchIn(left)).filter(xx => path(Pos(y, xx.start + x)))
-      maybeStartIntersect = Option
-        .when(startPosition.y == y && x < startPosition.x)(startIntersect.findFirstIn(grid(y))).map(_ => 1).getOrElse(0)
-      totalBorderIntersections = matches.length + maybeStartIntersect
+      totalBorderIntersections = matches.length
       insideCircle = totalBorderIntersections % 2 == 1
       if insideCircle
     } yield p
