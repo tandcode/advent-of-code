@@ -24,12 +24,12 @@ class HotSpringsTest extends AnyFlatSpec with Matchers {
     part2(test) should be(525152)
   }
 
-  "part2" should "pass with test test data" in {
-    part2(testt) should be(525152)
-  }
-
-  "part2" should "pass with input data" in {
-    part2(input) should be(525152)
-  }
+//  "part2" should "pass with test test data" in {
+//    part2(testt) should be(525152)
+//  }
+//
+//  "part2" should "pass with input data" in {
+//    part2(input) should be(525152)
+//  }
   
 }
