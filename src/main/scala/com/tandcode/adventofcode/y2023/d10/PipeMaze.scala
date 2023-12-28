@@ -50,6 +50,7 @@ object PipeMaze {
     if grid(pos) == startChar then path else {
       pos.nextStep(grid, prev) match
         case Some(nextPos) => toPath(grid, nextPos, pos, nextPos :: path)
+        case _ => Nil
     }
   }
 
