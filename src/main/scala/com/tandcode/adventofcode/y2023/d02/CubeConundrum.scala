@@ -1,6 +1,6 @@
 package com.tandcode.adventofcode.y2023.d02
 
-import com.tandcode.adventofcode.y2023.io.Util.strToLines
+import com.tandcode.adventofcode.io.Util.strToLines
 
 import scala.collection.mutable.HashMap as MHashMap
 

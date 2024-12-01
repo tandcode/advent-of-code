@@ -1,7 +1,6 @@
 package com.tandcode.adventofcode.y2023.d08
 
-import com.tandcode.adventofcode.y2023.io.Util
-
+import com.tandcode.adventofcode.io.Util
 import scala.annotation.tailrec
 
 

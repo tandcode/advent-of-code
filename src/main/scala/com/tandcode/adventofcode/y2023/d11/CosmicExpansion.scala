@@ -1,6 +1,6 @@
 package com.tandcode.adventofcode.y2023.d11
 
-import com.tandcode.adventofcode.y2023.io.Util.strToLines
+import com.tandcode.adventofcode.io.Util.strToLines
 
 object CosmicExpansion {
 

@@ -2,7 +2,7 @@ package com.tandcode.adventofcode.y2023.d14
 
 import com.tandcode.adventofcode.y2023.d14.ParabolicReflector.Direction
 import com.tandcode.adventofcode.y2023.d14.ParabolicReflector.Direction.{East, North, South, West}
-import com.tandcode.adventofcode.y2023.io.Util.strToLines
+import com.tandcode.adventofcode.io.Util.strToLines
 
 import scala.annotation.tailrec
 import scala.collection.immutable.Set
