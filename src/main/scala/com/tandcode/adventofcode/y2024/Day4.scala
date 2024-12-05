@@ -2,8 +2,6 @@ package com.tandcode.adventofcode.y2024
 
 import scala.annotation.tailrec
 import scala.collection.mutable
-import scala.collection.mutable.ListBuffer
-
 
 object Day4 {
 
@@ -49,7 +47,7 @@ object Day4 {
 
   def equalsXDashMas(lines: Array[String], y: Int, x: Int, dy: Int, dx: Int): Boolean = {
     def incr(num: Int, d: Int): Int = if d > 0 then num + 2 else num - 2
-    
+
     val hasWord = equalsWord(lines, y, x, dy, dx, mas)
     if !hasWord then return false
     val hasSecond1 = equalsWord(lines, incr(y, dy), x, -dy, dx, mas, 0)
