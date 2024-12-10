@@ -1,14 +1,10 @@
 package com.tandcode.adventofcode.y2023.d17
 
 import com.tandcode.adventofcode.api.{Direction, HeadingPos, Pos, ReachGridInt}
-
-import scala.annotation.tailrec
-import com.tandcode.adventofcode.io.ReachString
-import com.tandcode.adventofcode.io.ReachStrings
+import com.tandcode.adventofcode.io.Log.withTimeLog
+import com.tandcode.adventofcode.io.{ReachString, ReachStrings}
 
 import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
-import scala.runtime.DoubleRef
 
 object Day17 {
 
@@ -35,14 +31,6 @@ object Day17 {
       val res = search(nodes, Pos(numbers.length - 1, numbers(0).length - 1), Int.MaxValue, 10, 4)
       res
     }
-  }
-
-  def withTimeLog[T](run: => T): T = {
-    val start = System.nanoTime()
-    val res = run
-    val elapsed = System.nanoTime() - start
-    println(s"Execution took: ${elapsed.doubleValue / 1_000_000_000} sec")
-    res
   }
 
   def search[K](nodes: SortedNodes[K],
