@@ -27,8 +27,7 @@ object Day11 {
   private def nextNums(num: String): Seq[String] = num match
     case "0" => Seq("1")
     case num: String if num.length % 2 == 0 =>
-      val second = num.substring(num.length / 2).dropWhile(c => c == '0')
-      Seq(num.substring(0, num.length / 2), if second.isEmpty then "0" else second)
+      Seq(num.substring(0, num.length / 2), num.substring(num.length / 2).toLong.toString)
     case num: String => Seq((num.toLong * 2024).toString)
 
 }
