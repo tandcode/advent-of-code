@@ -20,4 +20,10 @@ implicit class ReachGridStr(grid: Array[String]) {
     charToPositions.toMap.map((k, v) => k -> v.toSeq)
   }
   
+  def forEachPos(consume: Pos => Unit): Unit = {
+    grid.indices.foreach(y => grid(y).indices.foreach(x => consume(Pos(y, x))))
+  }
+
+  def positions: Seq[Pos] = grid.indices.flatMap(y => grid(y).indices.map(x => Pos(y, x)))
+  
 }

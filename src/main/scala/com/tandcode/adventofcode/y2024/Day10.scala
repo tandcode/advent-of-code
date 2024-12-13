@@ -1,7 +1,5 @@
 package com.tandcode.adventofcode.y2024
-import com.tandcode.adventofcode.io.ReachString
-import com.tandcode.adventofcode.io.ReachStrings
-import com.tandcode.adventofcode.api.ReachGridInt
+import com.tandcode.adventofcode.api.{ReachGridInt, ReachString, ReachStrings}
 import com.tandcode.adventofcode.api.Pos
 
 object Day10 {

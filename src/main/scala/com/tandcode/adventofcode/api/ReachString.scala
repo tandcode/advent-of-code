@@ -1,4 +1,4 @@
-package com.tandcode.adventofcode.io
+package com.tandcode.adventofcode.api
 
 implicit class ReachString(s: String) {
   

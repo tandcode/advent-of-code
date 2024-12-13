@@ -8,3 +8,9 @@ enum Direction:
     case Left => Up
     case Down => Left
     case Right => Down
+
+  def turnLeft: Direction = this match
+    case Up => Left
+    case Left => Down
+    case Down => Right
+    case Right => Up

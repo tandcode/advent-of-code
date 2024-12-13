@@ -1,8 +1,7 @@
 package com.tandcode.adventofcode.y2023.d17
 
-import com.tandcode.adventofcode.api.{Direction, HeadingPos, Pos, ReachGridInt}
+import com.tandcode.adventofcode.api.{Direction, HeadingPos, Pos, ReachGridInt, ReachString, ReachStrings}
 import com.tandcode.adventofcode.io.Log.withTimeLog
-import com.tandcode.adventofcode.io.{ReachString, ReachStrings}
 
 import scala.collection.mutable
 

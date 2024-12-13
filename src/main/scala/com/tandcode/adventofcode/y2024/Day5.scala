@@ -1,7 +1,6 @@
 package com.tandcode.adventofcode.y2024
 
-import com.tandcode.adventofcode.io.ReachString
-import com.tandcode.adventofcode.io.ReachStrings
+import com.tandcode.adventofcode.api.{ReachString, ReachStrings}
 
 object Day5 {
 

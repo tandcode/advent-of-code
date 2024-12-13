@@ -1,7 +1,6 @@
 package com.tandcode.adventofcode.y2024
 
-import com.tandcode.adventofcode.api.Pos
-import com.tandcode.adventofcode.io.{ReachString, ReachStrings}
+import com.tandcode.adventofcode.api.{Pos, ReachString, ReachStrings}
 import com.tandcode.adventofcode.y2024.Day6.Direction
 import com.tandcode.adventofcode.y2024.Day6.Direction.{Down, Left, Right, Up}
 
