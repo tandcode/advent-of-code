@@ -9,6 +9,7 @@ object TestUtil {
     val yearFromPackage = testClassObj.getClass.getPackage.getName.split("\\.").last
     val testFiles = listFilesByPrefix(s"$yearFromPackage/${testClassObj.getClass.getSimpleName.stripSuffix("$")}")
     val inpToRes = testFiles
+      .sortBy(f => f.getName)
       .map(f => {
         val testInput = strFromFile(f)
         val sep1 = nLastIndexOf(testInput, '\n', 1)

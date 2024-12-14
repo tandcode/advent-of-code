@@ -1,8 +1,7 @@
 package com.tandcode.adventofcode.api
 
 import com.tandcode.adventofcode.api
-import com.tandcode.adventofcode.api.Direction._
-import com.tandcode.adventofcode.y2023.d10.PipeMaze.Pos
+import com.tandcode.adventofcode.api.Direction.*
 
 case class Pos(y: Int, x: Int) {
 
