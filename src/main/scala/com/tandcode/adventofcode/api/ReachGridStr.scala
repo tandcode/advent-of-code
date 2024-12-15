@@ -9,6 +9,8 @@ implicit class ReachGridStr(grid: Array[String]) {
 
   def apply(pos: HeadingPos): Char = apply(pos.pos)
   
+  def positionsOf(c: Char): Seq[Pos] = positions.filter(p => grid(p) == c)
+  
   def uniquePositions(except: Char): Map[Char, Seq[Pos]] = {
     val charToPositions = new mutable.HashMap[Char, ArrayBuffer[Pos]]
     grid.indices.foreach(y => grid(y).indices.foreach(x => {
@@ -25,5 +27,30 @@ implicit class ReachGridStr(grid: Array[String]) {
   }
 
   def positions: Seq[Pos] = grid.indices.flatMap(y => grid(y).indices.map(x => Pos(y, x)))
+
+  def find(c: Char): Pos = {
+    for {
+      y <- grid.indices
+      x <- grid(y).indices
+      if grid(y)(x) == c
+    } yield Pos(y, x)
+  }.head
+  
+  def set(p: Pos, v: Char): Unit = grid(p.y) = grid(p.y).substring(0, p.x) + v + grid(p.y).substring(p.x + 1)
+
+  def swap(pos1: Pos, pos2: Pos): Unit = {
+    val v1 = grid(pos1)
+    set(pos1, grid(pos2))
+    set(pos2, v1)
+  }
+  
+  def print(): Unit = {
+    grid.foreach(line => println(line))
+    println()
+  }
+
+  def prettyString(): String = {
+    grid.mkString("\n")
+  }
   
 }

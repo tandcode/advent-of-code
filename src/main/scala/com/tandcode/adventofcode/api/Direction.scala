@@ -14,3 +14,20 @@ enum Direction:
     case Left => Down
     case Down => Right
     case Right => Up
+    
+  def turnAround: Direction = this match
+    case Up => Down
+    case Left => Right
+    case Down => Up
+    case Right => Left
+
+
+object Direction:
+  
+  def apply(c: Char): Direction = c match
+    case '^' => Up
+    case '>' => Right
+    case 'v' => Down
+    case '<' => Left
+    
+end Direction

@@ -1,13 +1,8 @@
 package com.tandcode.adventofcode.y2024
 
-import com.tandcode.adventofcode.api.{Pos, ReachString, ReachStrings}
-import com.tandcode.adventofcode.y2024.Day6.Direction
-import com.tandcode.adventofcode.y2024.Day6.Direction.{Down, Left, Right, Up}
+import com.tandcode.adventofcode.api.{Pos, ReachGridStr, ReachString}
 
 import scala.annotation.tailrec
-import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
-import com.tandcode.adventofcode.api.ReachGridStr
 
 object Day8 {
 

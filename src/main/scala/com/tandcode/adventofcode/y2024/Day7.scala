@@ -1,10 +1,7 @@
 package com.tandcode.adventofcode.y2024
 
-import com.tandcode.adventofcode.api.{ReachString, ReachStrings}
-import com.tandcode.adventofcode.y2024.Day6.Direction
-import com.tandcode.adventofcode.y2024.Day6.Direction.{Down, Left, Right, Up}
-
-import scala.annotation.tailrec
+import com.tandcode.adventofcode.api.Direction.*
+import com.tandcode.adventofcode.api.{Direction, ReachString}
 
 
 object Day7 {
