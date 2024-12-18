@@ -54,3 +54,11 @@ implicit class ReachGridStr(grid: Array[String]) {
   }
   
 }
+
+object ReachGridStr:
+  def makeGrid(maxY: Int, maxX: Int, fill: Map[Char, Seq[Pos]], default: Char = '.'): Array[String] = {
+    val grid: Array[String] = Array.fill(maxY)(Array.fill(maxX)(default).mkString)
+    fill.foreach { case (c, poses) => poses.foreach(p => grid.set(p, c)) }
+    grid
+  }
+end ReachGridStr

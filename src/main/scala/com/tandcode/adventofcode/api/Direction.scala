@@ -20,6 +20,10 @@ enum Direction:
     case Left => Right
     case Down => Up
     case Right => Left
+    
+  def isHorizontal: Boolean = this match
+    case Left | Right => true
+    case _ => false
 
 
 object Direction:
