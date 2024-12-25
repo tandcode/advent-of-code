@@ -10,6 +10,8 @@ implicit class ReachGridStr(grid: Array[String]) {
   def apply(pos: HeadingPos): Char = apply(pos.pos)
   
   def positionsOf(c: Char): Seq[Pos] = positions.filter(p => grid(p) == c)
+
+  def positionOf(c: Char): Pos = positionsOf(c).head
   
   def uniquePositions(except: Char): Map[Char, Seq[Pos]] = {
     val charToPositions = new mutable.HashMap[Char, ArrayBuffer[Pos]]
@@ -52,6 +54,14 @@ implicit class ReachGridStr(grid: Array[String]) {
   def prettyString(): String = {
     grid.mkString("\n")
   }
+  
+  def matches(pos: Pos)(chars: Char*): Boolean = pos.validForGrid(grid) && chars.contains(grid(pos))
+
+  def countColumns(c: Char): Seq[Int] = grid(0).indices
+    .map(x => grid.indices
+      .map(y => grid(y)(x))
+      .count(_ == c)
+    )
   
 }
 
